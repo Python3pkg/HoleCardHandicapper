@@ -12,7 +12,7 @@ class Utils:
       reader = csv.reader(f)
       data = []
       for id1, id2, win_rate in reader:
-        id1, id2 = map(int, [id1, id2])
+        id1, id2 = list(map(int, [id1, id2]))
         win_rate = float(win_rate)
         table[id1][id2] = win_rate
     return table

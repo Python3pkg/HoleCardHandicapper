@@ -28,20 +28,20 @@ measure_avg_calc_time = lambda model, community_num: avg([measure_calc_time(mode
 # preflop
 preflop_model = Neuralnet("preflop")
 preflop_model.compile()
-print "[preflop] Average calculation time : %f" % measure_avg_calc_time(preflop_model, 0)
+print("[preflop] Average calculation time : %f" % measure_avg_calc_time(preflop_model, 0))
 
 # flop
 flop_model = Neuralnet("flop")
 flop_model.compile()
-print "[flop] Average calculation time : %f" % measure_avg_calc_time(flop_model, 3)
+print("[flop] Average calculation time : %f" % measure_avg_calc_time(flop_model, 3))
 
 # turn
 turn_model = Neuralnet("turn")
 turn_model.compile()
-print "[turn] Average calculation time : %f" % measure_avg_calc_time(turn_model, 4)
+print("[turn] Average calculation time : %f" % measure_avg_calc_time(turn_model, 4))
 
 # river
 river_model = Neuralnet("river")
 river_model.compile()
-print "[river] Average calculation time : %f" % measure_avg_calc_time(river_model, 5)
+print("[river] Average calculation time : %f" % measure_avg_calc_time(river_model, 5))
 

@@ -6,7 +6,7 @@ import time
 root = os.path.join(os.path.dirname(__file__), "..", "..")
 script_dir = os.path.join(root, "notebook", "script")
 timestamp = time.time()
-print "timestamp of this script is %d" % timestamp
+print("timestamp of this script is %d" % timestamp)
 gen_save_file_path = lambda suffix: os.path.join(script_dir, "preflop_neuralnet_training_note_%d.%s" % (timestamp, suffix))
 
 
@@ -29,7 +29,7 @@ test_df = pd.read_csv(test_data_path)
 
 # In[165]:
 
-print train_df.shape, test_df.shape
+print(train_df.shape, test_df.shape)
 
 
 # In[166]:
@@ -67,8 +67,8 @@ test_df["onehot"] = test_df.apply(lambda row: gen_one_hot(row['hole1_id'], row['
 to_ndarray = lambda X: np.array([np.array(x) for x in X])
 train_x, train_y = [to_ndarray(array) for array in [train_df["onehot"].values, train_df["win_rate"].values]]
 test_x, test_y = [to_ndarray(array) for array in [test_df["onehot"].values, test_df["win_rate"].values]]
-print "shape of training data => x: %s, y: %s" % (train_x.shape, train_y.shape)
-print "shape of test data => x: %s, y: %s" % (test_x.shape, test_y.shape)
+print("shape of training data => x: %s, y: %s" % (train_x.shape, train_y.shape))
+print("shape of test data => x: %s, y: %s" % (test_x.shape, test_y.shape))
 
 
 # # Create model
@@ -114,7 +114,7 @@ import seaborn
 plt.figure(figsize=(10,10))
 for idx, key in enumerate(history.history, start=1):
     plt.subplot(2, 1, idx)
-    plt.plot(range(len(history.history[key])), history.history[key])
+    plt.plot(list(range(len(history.history[key]))), history.history[key])
     plt.title(key)
 plt.savefig(gen_save_file_path("png"))
 
@@ -126,8 +126,8 @@ plt.savefig(gen_save_file_path("png"))
 from sklearn.metrics import mean_squared_error
 
 def print_model_performance(model, train_x, train_y, test_x, test_y):
-    print 'MSE on training data = {score}'.format(score=mean_squared_error(model.predict(train_x), train_y))
-    print 'MSE on test data = {score}'.format(score=mean_squared_error(model.predict(test_x), test_y))
+    print('MSE on training data = {score}'.format(score=mean_squared_error(model.predict(train_x), train_y)))
+    print('MSE on test data = {score}'.format(score=mean_squared_error(model.predict(test_x), test_y)))
 
 
 # In[179]:
@@ -156,5 +156,5 @@ for rank1, suit1, rank2, suit2, expected in test_case:
     x = gen_one_hot(*[card.to_id() for card in hole])
     X = np.array([x])
     y = model.predict(X)[0][0]
-    print "HOLE = [%s, %s] => win_rate = { prediction=%f, expected=%f }" % tuple(map(str, hole)+ [y , expected])
+    print("HOLE = [%s, %s] => win_rate = { prediction=%f, expected=%f }" % tuple(list(map(str, hole))+ [y , expected]))
 

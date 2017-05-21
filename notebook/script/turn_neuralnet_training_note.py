@@ -6,7 +6,7 @@ import time
 root = os.path.join(os.path.dirname(__file__), "..", "..")
 script_dir = os.path.join(root, "notebook", "script")
 timestamp = time.time()
-print "timestamp of this script is %d" % timestamp
+print("timestamp of this script is %d" % timestamp)
 gen_save_file_path = lambda suffix: os.path.join(script_dir, "turn_neuralnet_training_note_%d.%s" % (timestamp, suffix))
 
 # # Import learning data
@@ -28,7 +28,7 @@ test_df = pd.read_csv(test_data_path)
 
 # In[23]:
 
-print train_df.shape, test_df.shape
+print(train_df.shape, test_df.shape)
 
 
 # In[24]:
@@ -74,8 +74,8 @@ test_df["onehot"] = test_hole_one_hot + test_community_one_hot
 to_ndarray = lambda X: np.array([np.array(x) for x in X])
 train_x, train_y = [to_ndarray(array) for array in [train_df["onehot"].values, train_df["win_rate"].values]]
 test_x, test_y = [to_ndarray(array) for array in [test_df["onehot"].values, test_df["win_rate"].values]]
-print "shape of training data => x: %s, y: %s" % (train_x.shape, train_y.shape)
-print "shape of test data => x: %s, y: %s" % (test_x.shape, test_y.shape)
+print("shape of training data => x: %s, y: %s" % (train_x.shape, train_y.shape))
+print("shape of test data => x: %s, y: %s" % (test_x.shape, test_y.shape))
 
 
 # # Create model
@@ -121,7 +121,7 @@ import seaborn
 plt.figure(figsize=(10,10))
 for idx, key in enumerate(history.history, start=1):
     plt.subplot(2, 1, idx)
-    plt.plot(range(len(history.history[key])), history.history[key])
+    plt.plot(list(range(len(history.history[key]))), history.history[key])
     plt.title(key)
 plt.savefig(gen_save_file_path("png"))
 
@@ -133,8 +133,8 @@ plt.savefig(gen_save_file_path("png"))
 from sklearn.metrics import mean_squared_error
 
 def print_model_performance(model, train_x, train_y, test_x, test_y):
-    print 'MSE on training data = {score}'.format(score=mean_squared_error(model.predict(train_x), train_y))
-    print 'MSE on test data = {score}'.format(score=mean_squared_error(model.predict(test_x), test_y))
+    print('MSE on training data = {score}'.format(score=mean_squared_error(model.predict(train_x), train_y)))
+    print('MSE on test data = {score}'.format(score=mean_squared_error(model.predict(test_x), test_y)))
 
 
 # In[34]:
@@ -162,10 +162,10 @@ for card1, card2, card3, card4, card5, card6, expected in test_case:
     cards = [Card(rank=rank, suit=suit) for rank, suit in [card1, card2, card3, card4, card5, card6]]
     hole = cards[:2]
     community = cards[2:]
-    hole_onehot = gen_one_hot(map(to_id, hole))
-    community_onehot = gen_one_hot(map(to_id, community))
+    hole_onehot = gen_one_hot(list(map(to_id, hole)))
+    community_onehot = gen_one_hot(list(map(to_id, community)))
     x = hole_onehot + community_onehot
     X = np.array([x])
     y = model.predict(X)[0][0]
-    print "HOLE = [%s, %s], COMMUNITY = [%s, %s, %s, %s] => win_rate = { prediction=%f, expected=%f }" % tuple(map(str, hole) + map(str, community) + [y , expected])
+    print("HOLE = [%s, %s], COMMUNITY = [%s, %s, %s, %s] => win_rate = { prediction=%f, expected=%f }" % tuple(list(map(str, hole)) + list(map(str, community)) + [y , expected]))
 

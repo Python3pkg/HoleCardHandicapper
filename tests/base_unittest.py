@@ -8,7 +8,7 @@ class BaseUnitTest(unittest.TestCase):
   def almosteq(self, expected, target, tolerance):
     if isinstance(expected, list):
       curry = lambda zipped: self.almosteq(zipped[0], zipped[1], tolerance)
-      map(curry, zip(expected, target))
+      list(map(curry, list(zip(expected, target))))
     else:
       match = expected - tolerance <= target <= expected + tolerance
       if not match:

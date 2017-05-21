@@ -33,8 +33,8 @@ class Neuralnet(object):
     return win_rate
 
   def __print_cache_hit_log(self, hole, community):
-    print "cache hit!! with hole=%s, community=%s" % (
-            [str(c) for c in hole], [str(c) for c in community])
+    print("cache hit!! with hole=%s, community=%s" % (
+            [str(c) for c in hole], [str(c) for c in community]))
 
   def __read_json_from_file(self, filepath):
     with open(filepath, "rb") as f:
@@ -51,7 +51,7 @@ class Neuralnet(object):
   def __generate_input_for_mlp(self, hole, community):
     gen_one_hot = lambda target_ids: [1 if i in target_ids else 0 for i in range(1,53)]
     to_id = lambda card: card.to_id()
-    x = gen_one_hot(map(to_id, hole+community))
+    x = gen_one_hot(list(map(to_id, hole+community)))
     X = np.array([x])
     return X
 
@@ -63,8 +63,8 @@ class Neuralnet(object):
    gen_img = lambda zipped: [gen_card_vec(Card.from_id(card_id)) for card_id in zipped[0]+zipped[1]]
    wrap = lambda lst: np.array(lst)
    to_ndarray = lambda X: wrap([wrap(x) for x in X])
-   hole_ids = map(to_id, hole)
-   community_ids = map(to_id, community)
+   hole_ids = list(map(to_id, hole))
+   community_ids = list(map(to_id, community))
    x = gen_img((hole_ids, community_ids))
    X = to_ndarray(x)
    X = np.array([X.reshape(1, X.shape[0], X.shape[1])])
